@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('title');
-            $table->string('status')->default(\App\Enums\Task\ContributionStatus::InProgress);
+            $table->string('status')->default(\App\Enums\Task\TaskStatus::InProgress);
 
             $table->foreignId('goal_id')->nullable();
         });

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->text('bio')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('username')->nullable();
         });
     }
 
