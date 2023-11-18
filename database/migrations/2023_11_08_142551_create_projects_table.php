@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->string('name');
             $table->text('description');
+            $table->string('license')->nullable();
 
             $table->string('directory')->nullable();
 
