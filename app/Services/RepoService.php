@@ -14,7 +14,7 @@ class RepoService
 
     public function __construct($directory)
     {
-        $this->directory = $directory;
+        $this->directory = 'repos/' .  $directory;
         $this->full_path = Storage::path($this->directory);
         Log::write("debug", $this->full_path);
 
@@ -22,7 +22,8 @@ class RepoService
 
     }
 
-    public function create(){
+    public function create(): bool|string|null
+    {
         //create dir
         Storage::makeDirectory($this->directory);
 
@@ -56,9 +57,10 @@ class RepoService
 
     }
 
-    public function uploadFiles($commit_name, $files)
+    public function uploadFiles($commit_name, $files): string
     {
         //TODO: block all other operations while this is running
+
         //create branch
         shell_exec("cd $this->full_path && git checkout -b $commit_name");
         Log::write("debug", "cd $this->full_path && git checkout -b $commit_name");
@@ -82,9 +84,12 @@ class RepoService
 
         //return to master
         shell_exec("cd $this->full_path && git checkout master");
+
+        return $commit_name;
     }
 
-    public function merge($branch_name){
+    public function merge($branch_name): void
+    {
         //merge branch to master
         shell_exec("cd $this->full_path && git merge $branch_name");
         Log::write("debug", "cd $this->full_path && git merge $branch_name");
@@ -93,7 +98,8 @@ class RepoService
 
     }
 
-    public function download($branch_name){
+    public function download($branch_name): string
+    {
         //download branch
         shell_exec("cd $this->full_path && git checkout $branch_name");
 //        Log::write("debug", "cd $this->full_path && git checkout $branch_name");
