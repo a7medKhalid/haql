@@ -57,9 +57,15 @@ class RepoService
 
     }
 
-    public function uploadFiles($commit_name, $files): string
+    public function uploadFiles($commit_name, $filesarray): string
     {
         //TODO: block all other operations while this is running
+
+        $files = $filesarray['files[]'];
+       //remove folder[] from array
+        unset($filesarray['files[]']);
+        $names = $filesarray;
+
 
         //create branch
         shell_exec("cd $this->full_path && git checkout -b $commit_name");
@@ -72,10 +78,18 @@ class RepoService
 
         //upload files to branch
 
+        $counter = 0;
         foreach ($files as $file) {
-            $filename = $file->getClientOriginalName();
+
+            $filename = $names[$counter];
+
+            //remove folder name
+
+            $filename = substr($filename, strpos($filename, '/') + 1);
+
             Storage::putFileAs($this->directory,$file, $filename );
             Log::write("debug", "$filename");
+            $counter++;
         }
 
         //commit

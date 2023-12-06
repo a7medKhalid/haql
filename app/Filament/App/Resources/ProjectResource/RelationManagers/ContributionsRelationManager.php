@@ -70,6 +70,7 @@ class ContributionsRelationManager extends RelationManager
     {
 
 
+
         //get files from request
         $project = $this->getOwnerRecord();
 
@@ -82,7 +83,7 @@ class ContributionsRelationManager extends RelationManager
 
         $RepoService = new RepoService($project->id);
 
-        $commit_name = $RepoService->uploadFiles($contribution->id, $data['files']['folder']);
+        $commit_name = $RepoService->uploadFiles($contribution->id, $data['files']);
 
         $contribution->commit_name = $commit_name;
         $contribution->save();
