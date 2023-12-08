@@ -19,6 +19,7 @@ class IssuesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label(__('Title'))
                     ->required()
                     ->maxLength(255),
             ]);

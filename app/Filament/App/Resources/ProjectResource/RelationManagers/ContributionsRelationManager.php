@@ -20,17 +20,30 @@ class ContributionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contributions';
 
+    protected static function getRecordLabel(): ?string
+    {
+        return __('Contribution');
+    }
+
+    protected static function getPluralRecordLabel(): ?string
+    {
+        return __('Contributions');
+    }
+
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('title')
+                    ->label(__('Title'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
+                    ->label(__('Description'))
                     ->required()
                     ->maxLength(255),
                 FolderUpload::make('files')
+                    ->label(__('Files'))
                     ->required()
 
 
@@ -42,10 +55,13 @@ class ContributionsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('title')
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                ->label(__('Title')),
                 Tables\Columns\TextColumn::make('description')
+                    ->label(__('Description'))
                     ->limit(30),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                ->label(__('Status')),
 
 
 
@@ -61,10 +77,10 @@ class ContributionsRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\Action::make('downloadFiles')
-                    ->label('Download Files')
+                    ->label(__('Download Files'))
                     ->action(fn (Model $record) => $this->downloadFiles($record)),
                 Tables\Actions\Action::make('merge')
-                    ->label('Merge')
+                    ->label(__('Merge'))
                     ->action(fn (Model $record) => $this->merge($record)),
 
             ])

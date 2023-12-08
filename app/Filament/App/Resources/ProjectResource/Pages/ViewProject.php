@@ -22,7 +22,7 @@ class ViewProject extends ViewRecord
     {
         return [
             Action::make('downloadFiles')
-                ->label('Download Files')
+                ->label(__('Download Files'))
                 ->action(fn (Model $record) => $this->downloadFiles($record)),
 
         ];

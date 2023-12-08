@@ -21,6 +21,16 @@ class ProjectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function getLabel(): ?string
+    {
+        return __('Project');
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return __('Projects');
+    }
+
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
@@ -30,8 +40,6 @@ class ProjectResource extends Resource
                 ->label(__('Description')),
             TextEntry::make('license')
                 ->label(__('License')),
-
-
         ]);
 
     }
@@ -41,13 +49,16 @@ class ProjectResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label(__('Name'))
                     ->autofocus()
                     ->required()
                     ->placeholder(__('Name')),
                 Forms\Components\Textarea::make('description')
+                    ->label(__('Description'))
                     ->required()
                     ->placeholder(__('Description')),
                 Forms\Components\TextInput::make('license')
+                    ->label(__('License'))
                     ->placeholder(__('License'))
                     ->disabled()
                     ->default(License::Waqf),
@@ -59,9 +70,11 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label(__('Description'))
                     ->limit(30)
                     ->searchable()
                     ->sortable(),
