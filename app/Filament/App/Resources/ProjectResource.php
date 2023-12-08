@@ -13,6 +13,8 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 
 class ProjectResource extends Resource
@@ -30,6 +32,11 @@ class ProjectResource extends Resource
     {
         return __('Projects');
     }
+
+//    public static function getEloquentQuery(): Builder
+//    {
+//        return self::$model::query()->where('owner_id', auth()->user()->id);
+//    }
 
     public static function infolist(Infolist $infolist): Infolist
     {

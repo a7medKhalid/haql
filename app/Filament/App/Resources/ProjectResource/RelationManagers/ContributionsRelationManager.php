@@ -81,7 +81,8 @@ class ContributionsRelationManager extends RelationManager
                     ->action(fn (Model $record) => $this->downloadFiles($record)),
                 Tables\Actions\Action::make('merge')
                     ->label(__('Merge'))
-                    ->action(fn (Model $record) => $this->merge($record)),
+                    ->action(fn (Model $record) => $this->merge($record))
+                    ->authorize(fn(Model $record) => auth()->user()->can('merge', $record)),
 
             ])
             ->bulkActions([

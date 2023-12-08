@@ -15,6 +15,9 @@ class CreateProject extends CreateRecord
     {
 
         $project = $this->getRecord();
+
+        auth()->user()->projects()->save($project);
+
         $repo = new \App\Services\RepoService($project->id);
         $repo->create();
     }
