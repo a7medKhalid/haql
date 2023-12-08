@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\ProjectResource\RelationManagers;
 
+use App\Enums\Contribution\ContributionStatus;
 use App\Forms\Components\FolderUpload;
 use App\Models\Contribution;
 use App\Services\RepoService;
@@ -44,9 +45,14 @@ class ContributionsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(30),
+                Tables\Columns\TextColumn::make('status'),
+
+
+
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                ->options(fn() => array_column(ContributionStatus::cases(), 'value')),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()->using(
@@ -54,6 +60,12 @@ class ContributionsRelationManager extends RelationManager
                 ),
             ])
             ->actions([
+                Tables\Actions\Action::make('downloadFiles')
+                    ->label('Download Files')
+                    ->action(fn (Model $record) => $this->downloadFiles($record)),
+                Tables\Actions\Action::make('merge')
+                    ->label('Merge')
+                    ->action(fn (Model $record) => $this->merge($record)),
 
             ])
             ->bulkActions([
@@ -90,5 +102,31 @@ class ContributionsRelationManager extends RelationManager
 
         return $contribution;
     }
+
+
+    private function downloadFiles(Model $record)
+    {
+        $project = $this->getOwnerRecord();
+        $RepoService = new RepoService($project->id);
+        $RepoService->download($record->id);
+
+        $file_path = $RepoService->download($record->id);
+
+        return response()->download($file_path);
+
+    }
+
+    private function merge($contribution)
+    {
+        $project = $this->getOwnerRecord();
+        $RepoService = new RepoService($project->id);
+        $RepoService->merge($contribution->id);
+
+        $contribution->update([
+            'status' => ContributionStatus::Accepted,
+        ]);
+
+    }
+
 
 }
