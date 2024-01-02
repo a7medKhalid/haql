@@ -32,9 +32,8 @@ class ViewProject extends ViewRecord
     private function downloadFiles(Model $project)
     {
         $RepoService = new RepoService($project->id);
-        $RepoService->download('master');
-
-        $file_path = $RepoService->download($project->id);
+        
+        $file_path = $RepoService->download('master');
 
         return response()->download($file_path);
 

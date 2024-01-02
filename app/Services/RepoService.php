@@ -159,6 +159,8 @@ class RepoService
         //return to master
         shell_exec("cd $this->full_path && git checkout master");
 
+        //TODO: delete zip file after download or name it randomly as a temp solution
+
         // Return the zip file
         return $zipFilePath;
 
