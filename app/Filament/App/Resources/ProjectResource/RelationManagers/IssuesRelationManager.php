@@ -8,11 +8,27 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class IssuesRelationManager extends RelationManager
 {
     protected static string $relationship = 'issues';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Issues');
+    }
+
+    protected static function getPluralModelLabel(): ?string
+    {
+        return __('Issues');
+    }
+
+    protected static function getModelLabel(): ?string
+    {
+        return __('Issue');
+    }
 
     public function form(Form $form): Form
     {

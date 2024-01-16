@@ -20,6 +20,11 @@ class ContributionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contributions';
 
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Contributions');
+    }
+
     protected static function getRecordLabel(): ?string
     {
         return __('Contribution');
@@ -61,7 +66,8 @@ class ContributionsRelationManager extends RelationManager
                     ->label(__('Description'))
                     ->limit(30),
                 Tables\Columns\TextColumn::make('status')
-                ->label(__('Status')),
+                ->label(__('Status'))
+                ->formatStateUsing(fn(string $state) => __( $state)),
 
 
 

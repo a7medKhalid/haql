@@ -119,7 +119,7 @@ class RepoService
 //        Log::write("debug", "cd $this->full_path && git checkout $branch_name");
 
         // Define the zip file name and path
-        $zipFileName = $branch_name . '.zip';
+        $zipFileName = $branch_name . time() . '.zip';
         $zipFilePath = storage_path($zipFileName);
 
         // Create a new Zip Archive instance

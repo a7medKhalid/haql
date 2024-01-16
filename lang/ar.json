@@ -2,7 +2,6 @@
     "(and :count more error)": "(و :count خطأ إضافي)",
     "(and :count more errors)": "(و :count أخطاء إضافية)",
     "A Timeout Occurred": "انتهت المهلة",
-    "Accepted": "تمت الموافقة",
     "All rights reserved.": "جميع الحقوق محفوظة.",
     "Already Reported": "تم التبليغ مسبقاً",
     "Bad Gateway": "بوابة غير صالحة",
@@ -120,5 +119,12 @@
     "Title": "العنوان",
     "Status": "الحالة",
     "Merge" : "دمج",
-    "Files": "الملفات"
+    "Files": "الملفات",
+    "Trending Projects": "المشاريع الرائجة",
+    "Latest Projects": "أحدث المشاريع",
+    "open": "مفتوح",
+    "accepted": "تمت الموافقة",
+    "archived": "مؤرشف",
+    "rejected": "مرفوض",
+    "Accepted": "تمت الموافقة"
 }
